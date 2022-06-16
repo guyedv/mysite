@@ -25,7 +25,7 @@ class PersonView(APIView):
             email: str = request.data["email"]
             favorite_programming_language: str = request.data["favoriteProgrammingLanguage"]
             person: Person = Person.objects.create(name=name, email=email, favoriteProgrammingLanguage=favorite_programming_language)
-            headers_dict: dict = {'Location': f"http://127.0.0.1:8000/api/people/{person.id}", 'x-Created-Id': f"{person.id}"}
+            headers_dict: dict = {'Location': f"http://127.0.0.1:9000/api/people/{person.id}", 'x-Created-Id': f"{person.id}"}
             response: Response = Response(f"{name} was successfully added.", status=status.HTTP_201_CREATED,headers=headers_dict)
         except KeyError as e:
             response = Response(f"bad request, missing parameters: {str(e)}", status=status.HTTP_400_BAD_REQUEST)
@@ -202,7 +202,7 @@ def person_tasks(request: Request, id: str):
                 description: str = request.data["description"]
                 size: str = request.data["size"]
                 task = Chore(type=type, status=stat, description=description, size=size)
-                headers_dict: dict = {'Location': f"http://127.0.0.1:8000/api/tasks/{task.id}", 'x-Created-Id': f"{task.id}"}
+                headers_dict: dict = {'Location': f"http://127.0.0.1:9000/api/tasks/{task.id}", 'x-Created-Id': f"{task.id}"}
                 task.full_clean()
                 task.save()
                 person.chores.add(task)
@@ -214,7 +214,7 @@ def person_tasks(request: Request, id: str):
                 details: str = request.data["details"]
                 due_date: str = request.data["due_date"]
                 task = Homework(course=course, type=type, status=stat, details=details, due_date=due_date)
-                headers_dict: dict = {'Location': f"http://127.0.0.1:8000/api/tasks/{task.id}", 'x-Created-Id': f"{task.id}"}
+                headers_dict: dict = {'Location': f"http://127.0.0.1:9000/api/tasks/{task.id}", 'x-Created-Id': f"{task.id}"}
                 task.full_clean()
                 task.save()
                 person.homeworks.add(task)
